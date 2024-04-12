@@ -1,17 +1,24 @@
 package handlers
 
-import "github.com/gorilla/mux"
+import (
+	"log"
+	"net/http"
+
+	"github.com/gorilla/mux"
+)
 
 // add database once ready
 type Server struct {
-	listenAddr string
+	ListenAddr string
 }
 
-func newServer(listenAddr string) *Server {
-	return &Server{listenAddr: listenAddr}
+func NewServer(listenAddr string) *Server {
+    return &Server{ListenAddr: listenAddr}
 }
 
-func (s *Server) runServer() error {
+func (s *Server) RunServer() error {
 	router := mux.NewRouter()
-	router.handleFunc("/player", s.handlePlayer).Methods("POST")
+	router.HandleFunc("/player", makeHTTPHandleFunc(s.handlePlayer)).Methods("POST")
+	log.Println("Server is running on port: " + s.ListenAddr)
+	return http.ListenAndServe(s.ListenAddr, router)
 }

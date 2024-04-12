@@ -8,20 +8,23 @@ fetch players accounts
 
 package handlers
 
-import "net/http"
+import (
+	"fmt"
+	"net/http"
+)
 
-type apiFunction func(http.ResponseWriter, *http.Request) error
-
-func makeHTTPHandleFunc(fn apiFunction) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		if err := fn(w, r); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
-	}
-}
 
 func (s *Server) handlePlayer(w http.ResponseWriter, r *http.Request) error {
-	return nil
+	if r.Method == "GET" {
+		return s.handleGetAllPlayers(w, r)
+	}
+	if r.Method == "POST" {
+		return s.handleCreatePlayer(w, r)
+	}
+	if r.Method == "DELETE" {
+		return s.handleDeletePlayer(w, r)
+	}
+	return fmt.Errorf("Method not allowed %s", r.Method)
 }
 
 func (s *Server) handleGetPlayerByID(w http.ResponseWriter, r *http.Request) error {
