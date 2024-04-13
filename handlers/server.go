@@ -17,8 +17,9 @@ func NewServer(listenAddr string) *Server {
 }
 
 func (s *Server) RunServer() error {
-	router := mux.NewRouter()
-	router.HandleFunc("/player", makeHTTPHandleFunc(s.handlePlayer)).Methods("POST")
-	log.Println("Server is running on port: " + s.ListenAddr)
-	return http.ListenAndServe(s.ListenAddr, router)
+    router := mux.NewRouter()
+    router.HandleFunc("/player/{id}", makeHTTPHandleFunc(s.handleGetPlayerByID))
+    router.HandleFunc("/player", makeHTTPHandleFunc(s.handlePlayer))
+    log.Println("Server is running on port: " + s.ListenAddr)
+    return http.ListenAndServe(s.ListenAddr, router)
 }

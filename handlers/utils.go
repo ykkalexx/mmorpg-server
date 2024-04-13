@@ -11,12 +11,11 @@ type ApiError struct {
 	Error string
 }
 
-func WriteJSON(w http.ResponseWriter, status int, value any) error {
-	w.WriteHeader(status)
-	w.Header().Set("Content-Type", "application/json")
-	return json.NewEncoder(w).Encode(value)
+func WriteJSON(w http.ResponseWriter, statusCode int, data interface{}) error {
+    w.Header().Set("Content-Type", "application/json")
+    w.WriteHeader(statusCode)
+    return json.NewEncoder(w).Encode(data)
 }
-
 func makeHTTPHandleFunc(fn apiFunction) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if err := fn(w, r); err != nil {
