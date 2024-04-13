@@ -1,4 +1,5 @@
-package models
+// add areas types
+package types
 
 import "math/rand"
 
@@ -11,6 +12,25 @@ type Player struct {
 	PlayerRace  string  `json:"player_race"`
 	PlayerItems []Items `json:"player_items"`
 	PlayerStats []Stats `json:"player_stats"`
+}
+
+type Items struct {
+	ID         int    `json:"id"`
+	ItemName   string `json:"item_name"`
+	ItemType   string `json:"item_type"`
+	ItemRarity string `json:"item_rarity"`
+	ItemLevel  int    `json:"item_level"`
+	ItemValue  int    `json:"item_value"`
+}
+
+type Stats struct {
+	ID           int `json:"id"`
+	Strength     int `json:"strength"`
+	Dexterity    int `json:"dexterity"`
+	Constitution int `json:"constitution"`
+	Intelligence int `json:"intelligence"`
+	Wisdom       int `json:"wisdom"`
+	Charisma     int `json:"charisma"`
 }
 
 func NewPlayer(id int, age int, playerName string, playerLevel int, playerClass string, playerRace string, playerItems []Items, playerStats []Stats) *Player {

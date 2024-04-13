@@ -13,7 +13,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/mmorpg-server/models"
+	"github.com/mmorpg-server/types"
 )
 
 
@@ -30,7 +30,7 @@ func (s *Server) handlePlayer(w http.ResponseWriter, r *http.Request) error {
     if r.Method == "PUT" {
         return s.handleUpdatePlayer(w, r)
     }
-    return fmt.Errorf("Method not allowed %s", r.Method)
+    return fmt.Errorf("method not allowed %s", r.Method)
 }
 
 func (s *Server) handleGetPlayerByID(w http.ResponseWriter, r *http.Request) error {
@@ -39,7 +39,7 @@ func (s *Server) handleGetPlayerByID(w http.ResponseWriter, r *http.Request) err
 	// db.get(id)
 	fmt.Println("ID: ", id)
 
-	return WriteJSON(w, http.StatusOK, &models.Player{})
+	return WriteJSON(w, http.StatusOK, &types.Player{})
 }
 
 func (s *Server) handleCreatePlayer(w http.ResponseWriter, r *http.Request) error {
