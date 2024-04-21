@@ -33,6 +33,13 @@ type Stats struct {
 	Charisma     int `json:"charisma"`
 }
 
+type Areas struct {
+	ID        int    `json:"id"`
+	AreaName  string `json:"area_name"`
+	AreaLevel int    `json:"area_level"`
+	AreaType  string `json:"area_type"`
+}
+
 func NewPlayer(id int, age int, playerName string, playerLevel int, playerClass string, playerRace string, playerItems []Items, playerStats []Stats) *Player {
 	return &Player{
 		ID:          rand.Intn(1000),

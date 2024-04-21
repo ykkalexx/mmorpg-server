@@ -5,15 +5,20 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/mmorpg-server/db"
 )
 
 // add database once ready
 type Server struct {
-	ListenAddr string
+	ListenAddr  string
+    store       db.Storage
 }
 
-func NewServer(listenAddr string) *Server {
-    return &Server{ListenAddr: listenAddr}
+func NewServer(listenAddr string, store db.Storage) *Server {
+    return &Server{
+    ListenAddr: listenAddr,
+    store: store,
+    }
 }
 
 func (s *Server) RunServer() error {
